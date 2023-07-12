@@ -16,7 +16,7 @@ builder.Services.
    .AddType<TextMessage>()
    .AddType<TextContent>()
    .AddType<ImageContent>()
-   .AddTypeExtension<QueryBookResolvers>()
+   .AddTypeExtension<BookExtensions>()
 ;
 
 var app = builder.Build();
