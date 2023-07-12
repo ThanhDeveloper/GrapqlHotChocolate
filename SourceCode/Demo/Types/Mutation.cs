@@ -2,6 +2,7 @@
 using Demo.Error;
 using Demo.Models;
 using HotChocolate.Resolvers;
+using HotChocolate.Subscriptions;
 
 namespace Demo.Types
 {
@@ -25,6 +26,17 @@ namespace Demo.Types
             //UserNameTakenError.CreateErrorFrom(new UserNameTakenException("ABC"));
             return new User { UserName = username };
             //...
+        }
+
+        public async Task<Book> PublishBook(string title,
+            string author,
+            [Service] ITopicEventSender topicEventSender,
+            CancellationToken cancellationToken
+            )
+        {
+            var book = new Book { Title = title, Author = new Author { Name = author } };
+            await topicEventSender.SendAsync(nameof(PublishBook), book, cancellationToken);
+            return book;
         }
     }
 }

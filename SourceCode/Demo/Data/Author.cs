@@ -1,7 +1,10 @@
 ﻿namespace Demo.Data
 {
+    //[GraphQLName("BookAuthor")]
     public class Author
     {
-        public string Name { get; set; }
+        public int Id { get; set; }
+        //[GraphQLIgnore]
+        public string? Name { get; set; }
     }
 }
