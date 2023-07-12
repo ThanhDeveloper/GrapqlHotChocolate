@@ -1,10 +1,17 @@
-﻿namespace Demo.Error
+﻿using Demo.Data;
+
+namespace Demo.Error
 {
     public class UserNameTakenError
     {
-        public UserNameTakenError(UserNameTakenException ex)
+        private UserNameTakenError(string username)
         {
-            Message = $"The username {ex.Username} is already taken.";
+            Message = $"The username {username} is already taken.";
+        }
+
+        public static UserNameTakenError CreateErrorFrom(UserNameTakenException ex)
+        {
+            return new UserNameTakenError(ex.Username);
         }
 
         public string Message { get; }
@@ -12,7 +19,7 @@
 
     public class UserNameTakenException : Exception
     {
-        public UserNameTakenException(string username)
+        public UserNameTakenException(string username): base($"The username {username} is already taken.")
         {
             Username = username;
         }

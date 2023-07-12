@@ -1,6 +1,7 @@
 ﻿using Demo.Data;
 using Demo.Error;
 using Demo.Models;
+using HotChocolate.Resolvers;
 
 namespace Demo.Types
 {
@@ -13,9 +14,15 @@ namespace Demo.Types
             // Omitted code for brevity
         }
 
-        [Error(typeof(UserNameTakenError))]
-        public User? UpdateUserNameAsync([ID] Guid userId, string username)
+        [Error<UserNameTakenException>]
+        public User? UpdateUserNameAsync(IResolverContext context, [ID] Guid userId, string username)
         {
+            //throw new NotImplementedException();
+            //context.ReportError(new UserNameTakenException(username));
+            throw new UserNameTakenException(username);
+
+            //throw new UserNameTakenException(username);
+            //UserNameTakenError.CreateErrorFrom(new UserNameTakenException("ABC"));
             return new User { UserName = username };
             //...
         }
