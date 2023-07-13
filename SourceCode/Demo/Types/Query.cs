@@ -16,12 +16,14 @@ namespace Demo.Types
             }
         };
 
+        [GraphQLDescription("A query user field")] //Document similar with swagger operation in Rest
         public string GetUser([GraphQLName("name_of_user")] string username)
         {
             return username; 
             // Omitted code for brevity
         }
 
+        [GraphQLDeprecated("Use the `authors` field instead")]
         public Author GetAuthor([DefaultValue("Helo")] [GraphQLName("author")] string author)
         {
             return new () { Name = author };

@@ -17,6 +17,7 @@ builder.Services.
    .AddType<TextContent>()
    .AddType<ImageContent>()
    .AddTypeExtension<BookExtensions>()
+   .AddDirectiveType<MyDirectiveType>()
 ;
 
 var app = builder.Build();

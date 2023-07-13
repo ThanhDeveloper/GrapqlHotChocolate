@@ -5,7 +5,7 @@ namespace Demo.Types
     public class Book
     {
 
-        [DefaultValue("DefaultTitle")]
+        [ID]
         public int Id { get; set; }
         public string Title { get; set; }
 
