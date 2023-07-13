@@ -1,11 +1,14 @@
 ﻿using Demo.Data;
 using Demo.Models;
 using Demo.Scalars;
+using System;
 
 namespace Demo.Types
 {
     public class Query
     {
+        public string Foo() => "Bar";
+
         public Book GetBook() =>
         new Book
         {
@@ -29,9 +32,20 @@ namespace Demo.Types
             return new () { Name = author };
         }
 
+        [UsePaging]
+        [UseProjection]
+        [UseFiltering]
+        [UseSorting]
         public List<User> GetUsers()
         {
             return new () { };
+            // Omitted code for brevity
+        }
+
+        [UsePaging(typeof(IdType), ConnectionName = "CustomIds", MaxPageSize = 100, IncludeTotalCount = true)]
+        public IEnumerable<string> GetIds()
+        {
+            return  new List<string>{ "1", "2"};
             // Omitted code for brevity
         }
 
@@ -51,5 +65,9 @@ namespace Demo.Types
             return new TextContent("");
             // Omitted code for brevity
         }
+
+        //Data loader
+        //public async Task<Person> GetPerson(string id, PersonBatchDataLoader dataLoader)
+        //     => await dataLoader.LoadAsync(id);
     }
 }
